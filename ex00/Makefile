@@ -2,7 +2,7 @@ NAME = btc
 
 CC = c++
 
-SRC = main.cpp #BitcoinExchange.cpp
+SRC = main.cpp BitcoinExchange.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

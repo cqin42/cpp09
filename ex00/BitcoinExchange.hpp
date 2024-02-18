@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cqin <cqin@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: christine <christine@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:49:26 by cqin              #+#    #+#             */
-/*   Updated: 2024/02/13 16:46:32 by cqin             ###   ########.fr       */
+/*   Updated: 2024/02/18 15:48:46 by christine        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,46 +16,33 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <map>
+#include <cstdlib>
+#include <cmath>
 
-// template<typename T>
-// void	dateFormat(T date)
-// {
-// 	if (date.size() != 10)
-// 		throw std::runtime_error("Date not in format");
-// 	for (int i = 0; i < date.size(); i++)
-// 	{
-// 		if (date[i] == '-' && (i == 4 || i == 7))
-// 			;
-// 		else if (!isdigit(date[i]))
-// 			throw std::runtime_error("Date is not a digit");
-// 	}
 
-// 	int sub = atoi(date.substr(0, 4));
+class BitcoinExchange
+{
+	private:
+		std::map<std::string, double> _data;
+		std::string	_inputFile;
+		// std::string		_date;
+		// int			value;
+		BitcoinExchange();
+	public:
+		BitcoinExchange(std::string inputFile);
+		// BitcoinExchange(const BitcoinExchange &autre);
+		// BitcoinExchange &operator=(const BitcoinExchange &autre);
+		~BitcoinExchange();
 
-// 	try
-// 	{
-// 		if (sub < 0)
-// 			throw std::runtime_error("Error: Not a positive number.");
-// 		else if (sub > 9999)
-// 			throw std::runtime_error("Error: too large number.");
-// 	}
-// 	catch(const std::exception& e)
-// 	{
-// 		std::cerr << e.what() << '\n';
-// 	}
+		void	parseValue(std::string date, std::string value);
+		void	checkLine(std::string line);
+		void	readInputFile();
 
-// }
+		void	parseDate(std::string date);
+		void	parseLine(std::string line);
+		void	setData();
+};
 
-// template<typename T>
-// void	valueFormat(T value)
-// {
-// 	for (int i = 0; i < value.size(); i++)
-// 	{
-// 		if (!isdigit(value[i]))
-// 			throw std::runtime_error("Value is not a digit");
-// 	}
-// 	if (value < 0 || value > 1000)
-// 		throw std::runtime_error("Value out of bonds");
-// }
 
 #endif
