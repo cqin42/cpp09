@@ -6,13 +6,12 @@
 /*   By: christine <christine@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:48:52 by cqin              #+#    #+#             */
-/*   Updated: 2024/02/18 12:12:20 by christine        ###   ########.fr       */
+/*   Updated: 2024/02/21 01:43:23 by christine        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include <string>
-
 
 void	parseArgv(int argc, char **argv)
 {

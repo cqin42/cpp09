@@ -10,11 +10,18 @@ BitcoinExchange::BitcoinExchange(std::string inputFile):_data(), _inputFile(inpu
 	readInputFile();
 }
 
-// BitcoinExchange::BitcoinExchange(const BitcoinExchange &autre)
-// {}
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &autre): _data(autre._data), _inputFile(autre._inputFile)
+{}
 
-// BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &autre)
-// {}
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &autre)
+{
+	if (this != &autre)
+	{
+		_data = autre._data;
+		_inputFile = autre._inputFile;
+	}
+	return (*this);
+}
 
 
 BitcoinExchange::~BitcoinExchange()
@@ -36,7 +43,6 @@ void	BitcoinExchange::parseDate(std::string date)
 		throw std::runtime_error("Error: bad month " + date);
 	if ((month < 8 && month % 2 != 0) || (month > 7 && month % 2 == 0))
 	{
-		// std::cout << here <<
 		if (day > 31 || day < 1)
 			throw std::runtime_error("Error: bad day " + date);
 	}
@@ -47,7 +53,6 @@ void	BitcoinExchange::parseDate(std::string date)
 		else if (day > 30 || day < 1)
 			throw std::runtime_error("Error: bad day " + date);
 	}
-	// std::cout << year << " " << month << " " << day << std::endl;
 }
 
 void	BitcoinExchange::parseValue(std::string date, std::string value)
@@ -58,7 +63,6 @@ void	BitcoinExchange::parseValue(std::string date, std::string value)
 		throw std::runtime_error("Error: too large a number.");
 	else if (val < 0)
 	{
-		// std::cout << "here" << std::endl;
 		throw std::runtime_error("Error: not a positive number.");
 	}
 	std::map<std::string, double>::const_iterator it = _data.find(date);

@@ -46,7 +46,7 @@ int	RPN::calcul(int a, int b, std::string op)
 	}
 
 	// strtol(str.c_str(), &endptr, 10)
-	std::cout << std::numeric_limits<int>::max() << std::endl;
+	// std::cout << std::numeric_limits<int>::max() << std::endl;
 	if (result <= std::numeric_limits<int>::min() || result > std::numeric_limits<int>::max())
 			throw std::runtime_error("Error: int min or max reached");
 	return (static_cast<int>(result));
