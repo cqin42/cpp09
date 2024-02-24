@@ -24,7 +24,7 @@ RPN::~RPN()
 
 int	RPN::calcul(int a, int b, std::string op)
 {
-	long long result;
+	long long result = 0;
 
 	if (op == "+")
 	{

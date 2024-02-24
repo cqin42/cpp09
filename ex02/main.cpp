@@ -26,10 +26,10 @@ void	parsing(int argc, char **argv)
 	}
 	hasDuplicate(vector);
 	// printSequence(vector, "Before");
-	printSequence(vector, "Before");
-	mergeInsertSortProgram(vector, "vector");
-	// printSequence(vector, "After");
-	mergeInsertSortProgram(list, "list");
+	// printSequence(vector, "Before");
+	// mergeInsertSortProgram(vector, "vector");
+	// // printSequence(vector, "After");
+	// mergeInsertSortProgram(list, "list");
 }
 
 int main(int argc, char **argv)
@@ -39,7 +39,6 @@ int main(int argc, char **argv)
 		if (argc < 2)
 			throw std::runtime_error("Error");
 		parsing(argc, argv);
-
 	}
 	catch(const std::exception& e)
 	{
