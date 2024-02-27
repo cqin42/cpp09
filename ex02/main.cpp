@@ -15,21 +15,16 @@ bool	isDigit(char *arg)
 
 void	parsing(int argc, char **argv)
 {
-	std::vector<unsigned int> vector;
-	std::list<unsigned int> list;
+	// std::vector<unsigned int> vector;
+	// std::list<unsigned int> list;
 	for (int i = 1; i < argc; i++)
 	{
 		if (isDigit(argv[i]) == false)
 			throw std::runtime_error("Error: only positive integer");
-		vector.push_back(atoi(argv[i]));
-		list.push_back(atoi(argv[i]));
+		// vector.push_back(atoi(argv[i]));
+		// list.push_back(atoi(argv[i]));
 	}
-	hasDuplicate(vector);
-	// printSequence(vector, "Before");
-	// printSequence(vector, "Before");
-	// mergeInsertSortProgram(vector, "vector");
-	// // printSequence(vector, "After");
-	// mergeInsertSortProgram(list, "list");
+	// hasDuplicate(argv[1]);
 }
 
 int main(int argc, char **argv)
@@ -39,6 +34,7 @@ int main(int argc, char **argv)
 		if (argc < 2)
 			throw std::runtime_error("Error");
 		parsing(argc, argv);
+		PmergeMe pmergeme(argc, argv);
 	}
 	catch(const std::exception& e)
 	{

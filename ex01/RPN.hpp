@@ -2,15 +2,16 @@
 #define RPN_HPP
 
 #include <iostream>
-#include <deque>
+#include <stack>
 #include <cstdlib>
 #include <limits>
+#include <string>
+#include <iomanip>
 
 class RPN
 {
 	private:
-		std::deque<int> _rpn;
-		std::string sign;
+		std::stack<int> _rpn;
 
 	public:
 		RPN();
@@ -21,7 +22,10 @@ class RPN
 
 		void	doRPN(std::string s);
 		void	parseArg(std::string s);
-		int	calcul(int a, int b, std::string op);
+		int		calcul(int a, int b, std::string op);
+
+		void	visualizeRPN();
+		void	visualizeRPNCalcul(std::string op, int a, int b, int result);
 };
 
 #endif
