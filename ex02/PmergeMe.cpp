@@ -55,6 +55,56 @@ void	PmergeMe::sortLargerValue(std::vector<std::pair<unsigned int, unsigned int>
 	/**/
 }
 
+void	PmergeMe::FMJI(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int straggler)
+{
+	std::vector<unsigned int> s, pend;
+
+	// std::cout << "<<<<<<<<" << std::endl;
+	for (std::vector<std::pair<unsigned int, unsigned int> >::iterator it = pairs.begin(); it != pairs.end(); it++)
+	{
+		s.push_back(it->first);
+    	pend.push_back(it->second);
+   		// std::cout << it->first << std::endl;
+    	// std::cout << it->second << std::endl;
+	}
+
+	if (straggler != -1)
+		pend.push_back(straggler);
+
+	insertRemainingElements(s, pend);
+}
+
+
+void PmergeMe::insertRemainingElements(std::vector<unsigned int> &s, const std::vector<unsigned int> &remainingElements)
+{
+    for (size_t i = 0; i < remainingElements.size(); ++i)
+	{
+        unsigned int elementToInsert = remainingElements[i];
+        size_t insertionIndex = binarySearchInsertionIndex(s, elementToInsert);
+        s.insert(s.begin() + insertionIndex, elementToInsert);
+    }
+	for (size_t i = 0; i < s.size(); i++)
+	{
+		std::cout << s[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
+size_t PmergeMe::binarySearchInsertionIndex(const std::vector<unsigned int> &s, unsigned int element)
+{
+    size_t low = 0;
+    size_t high = s.size();
+    while (low < high)
+	{
+        size_t mid = low + (high - low) / 2;
+        if (s[mid] < element)
+            low = mid + 1;
+		else
+            high = mid;
+    }
+    return (low);
+}
+
 
 
 void	PmergeMe::mergeInsertSort(int argc, char **argv)
@@ -75,14 +125,23 @@ void	PmergeMe::mergeInsertSort(int argc, char **argv)
 		pairs.push_back(std::make_pair(a, b));
 	}
 
-	sortPairs(pairs);
-	sortLargerValue(pairs, pairs.size());
-
 	// for (size_t i = 0; i < pairs.size(); i++)
 	// {
 	// 	std::cout << pairs[i].first << " " << pairs[i].second << std::endl;
 	// 	// if (pairs[i].first > pairs[i].second)
 	// 	// 	std::swap(pairs[i].first, pairs[i].second);
 	// }
+	// std::cout << std::endl;
+
+	sortPairs(pairs);
+	sortLargerValue(pairs, pairs.size());
+	// for (size_t i = 0; i < pairs.size(); i++)
+	// {
+	// 	std::cout << pairs[i].first << " " << pairs[i].second << std::endl;
+	// 	// if (pairs[i].first > pairs[i].second)
+	// 	// 	std::swap(pairs[i].first, pairs[i].second);
+	// }
+	FMJI(pairs, hasStraggler);
+
 
 }

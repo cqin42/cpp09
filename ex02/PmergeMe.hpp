@@ -25,6 +25,9 @@ class PmergeMe
 		void	mergeInsertSort(int argc, char **argv);
 		void	sortPairs(std::vector<std::pair<unsigned int, unsigned int> > &pairs);
 		void	sortLargerValue(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int n);
+		void	FMJI(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int straggler);
+		void	insertRemainingElements(std::vector<unsigned int> &s, const std::vector<unsigned int> &remainingElements);
+		size_t	binarySearchInsertionIndex(const std::vector<unsigned int> &s, unsigned int element);
 
 
 	private:
