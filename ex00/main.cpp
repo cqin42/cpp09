@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: christine <christine@student.42.fr>        +#+  +:+       +#+        */
+/*   By: cqin <cqin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:48:52 by cqin              #+#    #+#             */
-/*   Updated: 2024/02/21 01:43:23 by christine        ###   ########.fr       */
+/*   Updated: 2024/02/29 13:03:58 by cqin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	parseArgv(int argc, char **argv)
 		fileData.close();
 		throw std::runtime_error("Error: could not open file.");
 	}
-
 	fileToread.close();
 	fileData.close();
 }

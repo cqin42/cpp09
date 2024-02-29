@@ -26,31 +26,49 @@ class PmergeMe
 		void	sortPairs(std::vector<std::pair<unsigned int, unsigned int> > &pairs);
 		void	sortLargerValue(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int n);
 		void	FMJI(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int straggler);
-		void	insertRemainingElements(std::vector<unsigned int> &s, const std::vector<unsigned int> &remainingElements);
+		void	insertPend(std::vector<unsigned int> &s, const std::vector<unsigned int> &pend);
 		size_t	binarySearchInsertionIndex(const std::vector<unsigned int> &s, unsigned int element);
 
+		// size_t	binarySearchInsertionIndexList(std::list<unsigned int> &s, unsigned int element);
+		std::list<unsigned int>::iterator	binarySearchInsertionIndexList(std::list<unsigned int> &s, unsigned int element);
+		void	insertPendList(std::list<unsigned int> &s, const std::list<unsigned int> &pend);
+		void	FMJIlist(std::list<std::pair<unsigned int, unsigned int> > &pairs, int straggler);
+		void	sortLargerValueList(std::list<std::pair<unsigned int, unsigned int> > &pairs, int n);
+		void	sortPairsList(std::list<std::pair<unsigned int, unsigned int> > &pairs);
 
-	private:
-		// std::vector<unsigned int> vector;
-		// std::list<unsigned int> list;
-		// int idx;
 };
 
 template<typename T>
-void	hasDuplicate(const T &sequence)
+void	hasDuplicate(const T &sequence, int surplus)
 {
 	T tmp = sequence;
 
-	std::sort(tmp.begin(), tmp.end());
-	typename T::iterator it = tmp.begin();
-	typename T::value_type n = *it;
+	typedef typename T::const_iterator Iterator;
+	Iterator it = tmp.begin();
+	typedef typename T::value_type valueType;
+	valueType n = *it;
 	for (it = tmp.begin() + 1 ; it != tmp.end(); it++)
 	{
-		if (n == *it)
-			throw std::runtime_error("Error: duplicate integer");
+		for (Iterator ite = it ; ite != tmp.end(); ite++)
+		{
+			if (n.first == ite->first || n.first == ite->second || n.first == n.second)
+				throw std::runtime_error("Error: duplicate integer");
+			else if (n.second == ite->first || n.second == ite->second)
+				throw std::runtime_error("Error: duplicate integer");
+			else if (surplus != -1 && ((unsigned int)surplus == n.first || (unsigned int)surplus == n.second))
+				throw std::runtime_error("Error: duplicate integer");
+		}
 		n = *it;
 	}
-}
 
+	std::cout << "Before: ";
+	for (it = tmp.begin() ; it != tmp.end(); it++)
+	{
+		std::cout << it->first << " " << it->second << " ";
+	}
+	if (surplus != -1)
+		std::cout << surplus;
+	std::cout << std::endl;
+}
 
 #endif

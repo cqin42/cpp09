@@ -29,34 +29,36 @@ RPN::~RPN()
 
 void	RPN::visualizeRPN()
 {
-	// int		idx = 0;
-	std::stack<int> copy = _rpn;
-	std::cout << "\033[1;4;30mVisualizer RPN\033[0m" << std::endl;
-	while (!copy.empty())
-	{
-		// std::cout << std::setw(2) << idx++ << " | ";
-		std::cout << std::setw(2) << copy.top() << std::endl;
-		copy.pop();
-	}
-	std::cout << std::endl;
+
+	// std::stack<int> copy = _rpn;
+	// std::cout << "\033[1;4;30mVisualizer RPN\033[0m" << std::endl;
+	// while (!copy.empty())
+	// {
+	// 	std::cout << std::setw(2) << copy.top() << std::endl;
+	// 	copy.pop();
+	// }
+	// std::cout << std::endl;
 }
 
 void	RPN::visualizeRPNCalcul(std::string op, int a, int b, int result)
 {
-	// std::cout << "aaa" << std::endl;
-	std::stack<int> copy = _rpn;
-	std::cout << "\033[1;4;30mVisualizer RPN\033[0m" << std::endl;
-	if (copy.empty())
-	{
-		std::cout << std::setw(2) << result << " = " << a << " " << op << " " << b << std::endl;
-	}
-	while (!copy.empty())
-	{
-		std::cout << result << " = " << a << " " << op << " " << b << std::endl;
-		std::cout << std::setw(2) << copy.top() << std::endl;
-		copy.pop();
-	}
-	std::cout << std::endl;
+	(void)op;
+	(void)a;
+	(void)b;
+	(void)result;
+	// std::stack<int> copy = _rpn;
+	// std::cout << "\033[1;4;30mVisualizer RPN\033[0m" << std::endl;
+	// if (copy.empty())
+	// {
+	// 	std::cout << std::setw(2) << result << " = " << a << " " << op << " " << b << std::endl;
+	// }
+	// while (!copy.empty())
+	// {
+	// 	std::cout << result << " = " << a << " " << op << " " << b << std::endl;
+	// 	std::cout << std::setw(2) << copy.top() << std::endl;
+	// 	copy.pop();
+	// }
+	// std::cout << std::endl;
 }
 
 int	RPN::calcul(int a, int b, std::string op)
@@ -117,7 +119,7 @@ void	RPN::parseArg(std::string s)
 	}
 	else if (s.size() != 1 || !isdigit(s[0]))
 	{
-		throw std::runtime_error("Error");
+		throw std::runtime_error("Error: greater than 10 or not digit");
 	}
 	else if (s.size() == 1 && isdigit(s[0]))
 	{

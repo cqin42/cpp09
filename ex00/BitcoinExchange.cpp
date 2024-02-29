@@ -102,7 +102,6 @@ void	BitcoinExchange::parseLine(std::string line)
 			double value = atof(line.substr(11, line.size() - 11).c_str());
 			_data[date] = value;
 		}
-			// parseValue(line.substr(11, line.size() - 11));
 	}
 }
 
@@ -115,8 +114,15 @@ void	BitcoinExchange::setData()
 		throw std::runtime_error("Error: could not open file.");
 
 	std::string line;
-	getline(dataFile, line);
+
+	if (!getline(dataFile, line))
+		throw std::runtime_error("Error: empty file");
 	// size_t	pos;
+	if (!getline(dataFile, line))
+		throw std::runtime_error("Error: empty data");
+	else
+		parseLine(line);
+
 	while (getline(dataFile, line))
 	{
 		parseLine(line);
