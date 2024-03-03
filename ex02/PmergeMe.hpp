@@ -12,6 +12,8 @@
 #include <ctime>
 #include <iomanip>
 #include <utility>
+#include <typeinfo>
+#include <sys/time.h>
 
 class PmergeMe
 {
@@ -27,7 +29,7 @@ class PmergeMe
 		void	sortLargerValue(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int n);
 		void	FMJI(std::vector<std::pair<unsigned int, unsigned int> > &pairs, int straggler);
 		void	insertPend(std::vector<unsigned int> &s, const std::vector<unsigned int> &pend);
-		size_t	binarySearchInsertionIndex(const std::vector<unsigned int> &s, unsigned int element);
+		std::vector<unsigned int>::iterator	binarySearchInsertionIndex(std::vector<unsigned int> &s, unsigned int element);
 
 		// size_t	binarySearchInsertionIndexList(std::list<unsigned int> &s, unsigned int element);
 		std::list<unsigned int>::iterator	binarySearchInsertionIndexList(std::list<unsigned int> &s, unsigned int element);

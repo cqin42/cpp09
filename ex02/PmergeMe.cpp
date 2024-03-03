@@ -55,7 +55,7 @@ void	PmergeMe::FMJI(std::vector<std::pair<unsigned int, unsigned int> > &pairs, 
 	{
 		s.push_back(it->first);
     	pend.push_back(it->second);
-   		// std::cout << it->first << std::endl;
+   		// std::cout << it->first ;
     	// std::cout << it->second << std::endl;
 	}
 
@@ -68,11 +68,13 @@ void	PmergeMe::FMJI(std::vector<std::pair<unsigned int, unsigned int> > &pairs, 
 
 void PmergeMe::insertPend(std::vector<unsigned int> &s, const std::vector<unsigned int> &pend)
 {
-    for (size_t i = 0; i < pend.size(); ++i)
+	std::vector<unsigned int>::const_iterator it = pend.begin();
+	// std::cout << *it << std::endl;
+    for (it == pend.begin(); it != pend.end(); it++)
 	{
-        unsigned int elementToInsert = pend[i];
-        size_t insertionIndex = binarySearchInsertionIndex(s, elementToInsert);
-        s.insert(s.begin() + insertionIndex, elementToInsert);
+        unsigned int elementToInsert = *it;
+        std::vector<unsigned int>::iterator insertionIndex = binarySearchInsertionIndex(s, elementToInsert);
+        s.insert(insertionIndex, elementToInsert);
     }
 
 	std::cout << "After: ";
@@ -81,14 +83,15 @@ void PmergeMe::insertPend(std::vector<unsigned int> &s, const std::vector<unsign
 	std::cout << std::endl;
 }
 
-size_t PmergeMe::binarySearchInsertionIndex(const std::vector<unsigned int> &s, unsigned int element)
+std::vector<unsigned int>::iterator PmergeMe::binarySearchInsertionIndex(std::vector<unsigned int> &s, unsigned int element)
 {
-    size_t low = 0;
-    size_t high = s.size();
-    while (low < high)
+	// (void) element;
+    std::vector<unsigned int>::iterator low = s.begin();
+    std::vector<unsigned int>::iterator high = s.end();
+    while (low != high)
 	{
-        size_t mid = low + (high - low) / 2;
-        if (s[mid] < element)
+        std::vector<unsigned int>::iterator mid = low + (high - low) / 2;
+        if (*mid < element)
             low = mid + 1;
 		else
             high = mid;
@@ -96,9 +99,17 @@ size_t PmergeMe::binarySearchInsertionIndex(const std::vector<unsigned int> &s, 
     return (low);
 }
 
+long long currentTimeMicros() {
+    timeval currentTime;
+    gettimeofday(&currentTime, NULL);
+    return currentTime.tv_sec * 1000000LL + currentTime.tv_usec;
+}
+
 void	PmergeMe::mergeInsertSort(int argc, char **argv)
 {
-	clock_t startTime = std::clock();
+	long long startTime = currentTimeMicros();
+
+	// clock_t startTime = std::clock();
 	int	hasStraggler = (argc - 1) % 2 != 0;
 
 	if (hasStraggler)
@@ -116,25 +127,36 @@ void	PmergeMe::mergeInsertSort(int argc, char **argv)
 		pairs.push_back(std::make_pair(a, b));
 		list.push_back(std::make_pair(a, b));
 	}
-	clock_t end1 = std::clock();
-	startTime = static_cast<double>(end1 - startTime);
+
+	long long endTime = currentTimeMicros();
+	long long elapsedTime = endTime - startTime;
 	hasDuplicate(pairs, hasStraggler);
-	// printSort(pairs, "Before :");
-	end1 = std::clock();
+	startTime = currentTimeMicros();
 	sortPairs(pairs);
 	sortLargerValue(pairs, pairs.size());
 	FMJI(pairs, hasStraggler);
-	// clock_t end = std::clock();
+	endTime = currentTimeMicros();
+	endTime = elapsedTime + (endTime - startTime);
 
+
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std:: vector : ";
 	std::cout << std::fixed;
-	std::cout << (startTime + static_cast<double>(std::clock() - end1)/ static_cast<double>(CLOCKS_PER_SEC)) * 1000000 << " us" << std::endl;
-
-	end1 = std::clock();
+	std::cout << endTime << " us" << std::endl;
+    startTime = currentTimeMicros();
 	sortPairsList(list);
 	sortLargerValueList(list, list.size());
+	// for (std::list<std::pair<unsigned int, unsigned int> >::iterator it = list.begin(); it != list.end(); it++)
+	// {
+	// 	std::cout << " " << it->first << " " << it->second << std::endl;
+	// 	// if (pairs[i].first > pairs[i].second)
+	// 	// 	std::swap(pairs[i].first, pairs[i].second);
+	// }
 	FMJIlist(list, hasStraggler);
+	endTime = currentTimeMicros();
+	endTime = elapsedTime + (endTime - startTime);
+	std::cout << "Time to process a range of " << argc - 1 << " elements with std:: list : ";
 	std::cout << std::fixed;
-	std::cout << (startTime + static_cast<double>(std::clock() - end1)/ static_cast<double>(CLOCKS_PER_SEC)) * 1000000 << " us" << std::endl;
+	std::cout << endTime << " us" << std::endl;
 
 }
 /*--------------------------------------------------------------------------------------------------------------------------*/
@@ -161,7 +183,10 @@ void	PmergeMe::sortLargerValueList(std::list<std::pair<unsigned int, unsigned in
 		if (ite == pairs.end())
 			;
 		else if (it->first > ite->first)
-			std::swap(it, ite);
+		{
+			// std::cout << "hyhy" << std::endl;
+			std::swap(*it, *ite);
+		}
 	}
 }
 
@@ -174,8 +199,8 @@ void	PmergeMe::FMJIlist(std::list<std::pair<unsigned int, unsigned int> > &pairs
 	{
 		s.push_back(it->first);
     	pend.push_back(it->second);
-   		// std::cout << it->first << std::endl;
-    	// std::cout << it->second << std::endl;
+   		// std::cout <<"pipi = " << it->first;
+    	// std::cout << "lala = " << it->second << std::endl;
 	}
 
 	if (straggler != -1)
@@ -193,24 +218,21 @@ void PmergeMe::insertPendList(std::list<unsigned int> &s, const std::list<unsign
         std::list<unsigned int>::iterator insertionIndex = binarySearchInsertionIndexList(s, elementToInsert);
         s.insert(insertionIndex, elementToInsert);
     }
-	std::cout << "After: ";
-	for (std::list<unsigned int>::const_iterator it = s.begin(); it != s.end(); it++)
-		std::cout << *it << " ";
-	std::cout << std::endl;
+	// std::cout << "After: ";
+	// for (std::list<unsigned int>::iterator it = s.begin(); it != s.end(); it++)
+	// 	std::cout << *it << " ";
+	// std::cout << std::endl;
 }
 
 std::list<unsigned int>::iterator PmergeMe::binarySearchInsertionIndexList(std::list<unsigned int> &s, unsigned int element)
 {
-    std::list<unsigned int>::iterator low = s.begin();
-    std::list<unsigned int>::iterator high = s.end();
-    while (low != high)
+
+	std::list<unsigned int>::iterator it = s.begin();
+
+    while (it != s.end() && *it < element)
 	{
-		std::list<unsigned int>::iterator mid = low;
-		std::advance(mid, std::distance(low, high) / 2);
-        if (*mid < element)
-            ++low;
-        else
-            high = mid;
+        ++it;
     }
-    return (low);
+
+    return it;
 }
